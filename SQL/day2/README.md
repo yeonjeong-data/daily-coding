@@ -40,33 +40,12 @@ https://school.programmers.co.kr/learn/courses/30/lessons/59405
 
 - 동물 보호소에 가장 먼저 들어온 동물의 이름을 조회하는 SQL 문을 작성
 
-## 코드 1:
+## 코드:
 ```sql
 SELECT NAME
 FROM ANIMAL_INS
-ORDER BY DATETIME ASC
-LIMIT 1
+WHERE DATETIME = (SELECT MIN(DATETIME) FROM ANIMAL_INS)
 ```
-
-## 코드 2:
-```sql
-SELECT NAME 
-FROM ANIMAL_INS
-WHERE DATETIME IN (SELECT MIN(DATETIME) FROM ANIMAL_INS)
-```
-
-## 코드 3:
-```sql
-SELECT NAME
-FROM ANIMAL_INS
-GROUP BY NAME
-HAVING MIN(DATETIME) = (
-    SELECT MIN(DATETIME) 
-    FROM ANIMAL_INS
-)
-```
-
-* 집계 함수를 위해 HAVING 절을 사용하려면 GROUP BY 절이 필요
 
 ## 문제 4: 최솟값 구하기
 
@@ -78,7 +57,7 @@ https://school.programmers.co.kr/learn/courses/30/lessons/59038
 ```sql
 SELECT DATETIME
 FROM ANIMAL_INS
-WHERE DATETIME IN (SELECT MIN(DATETIME) FROM ANIMAL_INS)
+WHERE DATETIME = (SELECT MIN(DATETIME) FROM ANIMAL_INS)
 ```
 
 ## 문제 5: 어린 동물 찾기
